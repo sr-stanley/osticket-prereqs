@@ -4,12 +4,8 @@
 </p>
 
 <h1>osTicket - Prerequisites and Installation</h1>
-This tutorial outlines the prerequisites and installation of the open-source help desk ticketing system osTicket.<br />
 
-
-<h2>Video Demonstration</h2>
-
-- ### [YouTube: How To Install osTicket with Prerequisites](https://www.youtube.com)
+This guide walks you through installing and configuring **osTicket v1.15.8** on Windows using **IIS, PHP and MySQL**. Each step includes a brief explination of why it is important.
 
 <h2>Environments and Technologies Used</h2>
 
@@ -22,20 +18,20 @@ This tutorial outlines the prerequisites and installation of the open-source hel
 - Windows 10</b> (22H2)
 
 ## Table of Contents
-- STEP 1 – Enable IIS with CGI
-- STEP 2 – Install PHP and IIS Modules
-- STEP 3 – Install Microsoft Visual C++ Redistributable (x86, 2015–2022)
-- STEP 4 – Install MySQL 5562
-- STEP 5 – Configure PHP in IIS
-- STEP 6 – Install and Configure osTicket v1158
-- STEP 7 – Install and Configure HeidiSQL
+- [STEP 1 — Enable IIS with CGI](#step-1--enable-iis-with-cgi)
+- [STEP 2 — Install PHP Manager and IIS Rewrite Modules](#step-2--install-php-manager-and-iis-rewrite-modules)
+- [STEP 3 — Install Microsoft Visual C++ Redistributable (x86, 2015-2022)](#step-3--install-microsoft-visual-c-redistributable-x86-2015-2022)
+- [STEP 4 — Install MySQL 5.5.62](#step-4--install-mysql-5562)
+- [STEP 5 — Configure PHP in IIS](#step-5--configure-php-in-iis)
+- [STEP 6 — Install and Configure osTicket v1.15.8](#step-6--install-and-configure-osticket-v1158)
+- [STEP 7 — Install and Configure HeidiSQL](#step-7--install-and-configure-heidisql)
 
 <h2>Installation Steps</h2>
 
-<h3>STEP 1 – Enable IIS with CGI</h3>
+### STEP 1 – Enable IIS with CGI
 
 **Why:**  
-IIS (Internet Information Services) is Microsoft’s web server platform. Enabling **CGI (Common Gateway Interface)** allows IIS to run certain server-side scripts that osTicket requires. Without IIS, your system cannot host the osTicket web application.  
+IIS (Internet Information Services) is Microsoft’s web server platform. Enabling CGI (Common Gateway Interface) allows IIS to run certain server-side scripts that osTicket requires. Without IIS, your system cannot host the osTicket web application.  
 
 **Instructions:**  
 1. Open **Control Panel** → Programs → Programs and Features.  
@@ -51,7 +47,7 @@ IIS (Internet Information Services) is Microsoft’s web server platform. Enabli
 
 ---
 
-<h3>STEP 2 – Install PHP and IIS Modules</h3>
+### STEP 2 – Install PHP Manager and IIS Rewrite Modules
 
 **Why:**  
 - **PHP Manager:** Integrates PHP with IIS, ensuring scripts execute correctly.  
@@ -78,12 +74,12 @@ IIS (Internet Information Services) is Microsoft’s web server platform. Enabli
 
 ---
 
-<h3>STEP 3 – Install Microsoft Visual C++ Redistributable (x86, 2015-2022)</h3>
+### STEP 3 – Install Microsoft Visual C++ Redistributable (x86, 2015-2022)
 
-**Why**
+**Why:**  
 The Visual C++ Redistributable provides runtime libraries required by PHP, MySQL, and osTIcket. Even on 64-bit systems. some components still run as 32-bit, making the **x86 version necessary** for compatibility.
 
-**Instructions**
+**Instructions:**  
 1. Download and install the **Visual C++ 2015-2022 Redistributable (x86)**
 
 <p>
@@ -92,17 +88,17 @@ The Visual C++ Redistributable provides runtime libraries required by PHP, MySQL
 
 ---
 
-<h3>STEP 4 – Install MySQL 5.5.62</h3>
+### STEP 4 – Install MySQL 5.5.62
 
-**Why**
+**Why:**  
 osTicket requires a database. MySQL 5.5.62 is used here for **compatibility and stability** with osTicket.
 
-**Instructions**
+**Instructions:**  
 1. Run MySQL installer → choose **Typical Setup**.
 2. Launch **MySQL Configuration Wizard**.
 3. Select **Standard Configuration**.
 4. Created a password for the **root** user (used later in HeidiSQL).
-5. Finish installation
+5. Finish installation.
 
 <p>
 <img width="493" height="383" alt="4  Install MySQL" src="https://github.com/user-attachments/assets/beb94365-8711-4388-9f33-785205fd4df2"/>
@@ -110,12 +106,12 @@ osTicket requires a database. MySQL 5.5.62 is used here for **compatibility and 
 
 ---
 
-<h3>STEP 5 – Configure PHP in IIS</h3>
+### STEP 5 – Configure PHP in IIS
 
-**Why**
+**Why:**  
 IIS needs to know which PHP version to use. This ensures osTicket's PHP scripts run properly.
 
-**Instructions**
+**Instructions:**  
 1. Open **IIS as Administrator**.
 2. Go to **PHP Manager** → Register new PHP version.
 3. Browse to the `C:\PHP` folder → select **php-cgi.exe**.
@@ -127,15 +123,16 @@ IIS needs to know which PHP version to use. This ensures osTicket's PHP scripts 
 
 ---
 
-<h3>STEP 6 – Install and Configure osTicket v1.15.8</h3>
+### STEP 6 – Install and Configure osTicket v1.15.8
 
-**Why**
+**Why:**  
 osTicket is the actual helpdesk/ticketing application. Installing it correctly ensures the system can run within IIS and communicate with PHP/MySQL.
 
-**Instructions**
-1. Download osTicket → copy the **upload** folder into `C:\inetpub\wwwroot`.
+**Instructions:**  
+1. Download osTicket v1.15.8 → copy the **upload** folder into `C:\inetpub\wwwroot`.
 2. Rename the **upload** folder to **osTicket**.
-3. Enable required PHP extentions in IIS Manager → PHP Manager:
+3. Reload IIS (**Stop → Start**) to apply changes.
+4. Enable required PHP extentions in IIS Manager → PHP Manager:
   - `php_imap.dll`
   - `php_intl.dll`
   - `php_opcache.php`
@@ -146,14 +143,24 @@ osTicket is the actual helpdesk/ticketing application. Installing it correctly e
   - Connections → Sites → Default Web Site → osTicket.
   - On the right, click *Browse .80 (http)* to launch osTicket in a browser.
 
+<p>
+<img width="1421" height="748" alt="6  Enable osTicket extensions1 5" src="https://github.com/user-attachments/assets/22d9e8d3-42b7-41d5-9a5b-debd7050f7ab"/>
+</p>
+<p>
+<img width="1560" height="823" alt="6  ost-config" src="https://github.com/user-attachments/assets/c45a4f47-9489-49c3-a6be-48b1ad2d1eca"/>
+</p>
+<p>
+<img width="1422" height="747" alt="6  Load osTicket site1" src="https://github.com/user-attachments/assets/6e996197-41f8-4b82-a4ee-30d4568582d7"/>
+</p>
+
 ---
 
-<h3>STEP 7 – Install and Configure HeidiSQL</h3>
+### STEP 7 – Install and Configure HeidiSQL
 
-**Why**
+**Why**  
 HeidiSQL is GUI tool client that makes it east to create/manage the osTicket MySQL database.
 
-**Instructions**
+**Instructions:**  
 1. Install **HeidiSQL 12.3.0.6589**.
 2. Open HeidiSQL → click **New**.
 3. Enter:
@@ -169,6 +176,25 @@ HeidiSQL is GUI tool client that makes it east to create/manage the osTicket MyS
      - Database Name: `osTicket`
      - MySQL Username: `root`
      - MySQL Password: (your MySQL root password)
-    
-<h1>🎉Congratulations!</h1>
+
+<p>
+<img width="593" height="460" alt="7  Instal HeidiSQL" src="https://github.com/user-attachments/assets/6c235264-d250-4fd0-8960-98e5654914e1"/>
+</p>
+<p>
+<img width="681" height="479" alt="7  heidi" src="https://github.com/user-attachments/assets/30d9c176-91fd-4c46-82b6-ff604c865147"/>
+</p>
+<p>
+<img width="932" height="590" alt="7  heidi2" src="https://github.com/user-attachments/assets/a8b9c546-df0b-4e55-adb0-365323d469c6"/>
+</p>
+<p>
+<img width="946" height="968" alt="7  Screenshot 2025-09-02 011732" src="https://github.com/user-attachments/assets/fab9b2e6-5b1e-489e-838f-44072b91fcd5"/>
+</p>
+<p>
+<img width="743" height="378" alt="7  Screenshot 2025-09-02 222217" src="https://github.com/user-attachments/assets/699057e8-29e9-4670-ad43-2799f3cca149"/>
+</p>
+
+---
+
+<h3>🎉Congratulations!</h3>
+
 You have succesfully installed and configured **osTicket** on Windows using **IIS, PHP, and MYSQL**.
