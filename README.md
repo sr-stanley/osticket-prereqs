@@ -5,7 +5,7 @@
 
 <h1>osTicket - Prerequisites and Installation</h1>
 
-This guide walks you through installing and configuring **osTicket v1.15.8** on Windows using **IIS, PHP and MySQL**. Each step includes a brief explination of why it is important.
+This guide walks you through installing and configuring **osTicket v1.15.8** on Windows using **IIS, PHP and MySQL**. Each step includes a brief explanation of why it is important.
 
 <h2>Environments and Technologies Used</h2>
 
